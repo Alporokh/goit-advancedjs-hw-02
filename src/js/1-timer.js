@@ -20,13 +20,14 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     const selectedDate = selectedDates[0];
-    
+
     if (selectedDate < new Date()) {
       iziToast.error({
         title: 'Error',
         message: 'Please choose a date in the future',
         position: 'topRight',
       });
+      userSelectedDate = null;
       startBtn.disabled = true;
     } else {
       userSelectedDate = selectedDate;
@@ -38,7 +39,6 @@ const options = {
 flatpickr(input, options);
 
 startBtn.addEventListener('click', () => {
-  // Деактивуємо інтерфейс після старту
   startBtn.disabled = true;
   input.disabled = true;
 
@@ -49,7 +49,7 @@ startBtn.addEventListener('click', () => {
     if (deltaTime <= 0) {
       clearInterval(timerId);
       updateTimerInterface(convertMs(0));
-      input.disabled = false; // Дозволяємо вибір нової дати після завершення
+      input.disabled = false;
       return;
     }
 
